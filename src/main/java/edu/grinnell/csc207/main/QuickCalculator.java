@@ -3,44 +3,43 @@ package edu.grinnell.csc207.main;
 import edu.grinnell.csc207.util.BFCalculator;
 import edu.grinnell.csc207.util.BFRegisterSet;
 import edu.grinnell.csc207.util.ExtraUtils;
+import static edu.grinnell.csc207.util.ExtraUtils.calcRunner;
+import static edu.grinnell.csc207.util.ExtraUtils.isStore;
 
 /**
  * Takes input from the command line and runs calculations based on it.
  *
  *
- * @param args
- *   Strings from the command line.
- * 
+ * @param args Strings from the command line.
+ *
  * @author A.J. Trimble
  */
 public class QuickCalculator {
-/**
- * Takes input from the command line and runs calculations based on it.
- * Prints results to the terminal.
- *
- * @param args
- *   Strings from the command line.
- */
+
+    /**
+     * Takes input from the command line and runs calculations based on it.
+     * Prints results to the terminal.
+     *
+     * @param args Strings from the command line.
+     */
     public static void main(String[] args) {
-        ExtraUtils utils = new ExtraUtils();
         BFRegisterSet register = new BFRegisterSet();
-        BFCalculator[] calcs = new BFCalculator[args.length];  
+        BFCalculator[] calcs = new BFCalculator[2];
+        calcs[0] = new BFCalculator();
+        calcs[1] = new BFCalculator();
         for (int i = 0; i < args.length; i++) {
-            utils.argsUnderstander(args[i], calcs[i], register);
-            if (args[i].length() > 4 ) {
-                if (args[i].substring(0,5).equals("STORE")){
-                    if (Character.isLowerCase(args[i].charAt(6))) {
-                        utils.storeHandler(args[i].charAt(6), calcs[i-1], register);
-                        System.out.println(args[i] + " -> STORED");
-                        continue;
-                    } // end if
-                } // end if
-            } // end if
-            if (Character.isLowerCase(args[i].charAt(0)) && args[i].length() == 1) {
-                System.out.println(args[i] + " -> " + register.get(args[i].charAt(0)));
+            char operation = 'a';
+            boolean invalidInput = calcRunner(args[i], calcs, register, i, operation);
+            if (invalidInput) {
+                System.out.println(args[i] + " -> FAILED [Invalid expression]");
             } else {
-                System.out.println(args[i] + " -> " + utils.wholeNumber(calcs[i].get()));
-            } // end else
-        } // end for
+                if (isStore(args[i])) {
+                    System.out.println(args[i] + " -> STORED");
+                } else {
+                    System.out.println(args[i] + " -> " + (calcs[i % 2].get()).toString());
+                } // if else
+            } // else
+            calcs[(i + 1) % 2].clear();
+        } // main method
     } // main method
-} // end class
+} // class

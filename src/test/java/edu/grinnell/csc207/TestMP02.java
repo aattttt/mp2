@@ -1,14 +1,15 @@
 package edu.grinnell.csc207;
 
+import edu.grinnell.csc207.util.BigFraction;
+import edu.grinnell.csc207.util.BFCalculator;
+import edu.grinnell.csc207.util.BFRegisterSet;
+
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import org.junit.jupiter.api.Test;
 
-import edu.grinnell.csc207.util.BFCalculator;
-import edu.grinnell.csc207.util.BFRegisterSet;
-import edu.grinnell.csc207.util.BigFraction;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests of the various classes for MP02.

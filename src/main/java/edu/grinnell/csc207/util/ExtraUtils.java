@@ -58,8 +58,8 @@ public class ExtraUtils {
    *
    */
   public static boolean isOperation(String input) {
-    char firstChar = input.charAt(0);
-    return (input.length() == 1 && ((firstChar == '+' || firstChar == '-' || firstChar == '*' || firstChar == '/')));
+    char ch = input.charAt(0);
+    return (input.length() == 1 && ((ch == '+' || ch == '-' || ch == '*' || ch == '/')));
   } // end method
 
   /**
@@ -143,26 +143,26 @@ public class ExtraUtils {
    * @param formula  the string from which the opperations drawn will be done.
    * @param calcs    an array of calculators which will handle and store
    *                 everything related to one set of calculations.
-   * @param register the register in which values can be stored and gotten.
+   * @param reg the register in which values can be stored and gotten.
    * @param i        The current calculator being used.
    * @param operation     the opperation being run. defaults to 'a'
    * @return boolean wether or not the given data was a valid call which got
    *         run.
    *
    */
-  public static boolean calcRunner(String formula, BFCalculator[] calcs, BFRegisterSet register, int i,
+  public static boolean calcRunner(String formula, BFCalculator[] calcs, BFRegisterSet reg, int i,
       char operation) {
     String[] inputs = formula.split(" ");
     boolean numNext = false;
     boolean invalidInput = false;
     if (isStore(formula)) {
-      register.store(registerChar(formula), calcs[(i + 1) % 2].get());
+      reg.store(registerChar(formula), calcs[(i + 1) % 2].get());
       calcs[i % 2].add(calcs[(i + 1) % 2].get());
     } else {
       for (int x = 0; x < inputs.length; x++) {
         if (x == 0) {
-          if (isNumber(inputs[x], register)) {
-            calcs[i % 2].add(getBigFraction(inputs[x], register));
+          if (isNumber(inputs[x], reg)) {
+            calcs[i % 2].add(getBigFraction(inputs[x], reg));
           } else {
             invalidInput = true;
             break;
@@ -170,15 +170,15 @@ public class ExtraUtils {
         } else if (!numNext && isOperation(inputs[x])) {
           operation = inputs[x].charAt(0);
           numNext = true;
-        } else if (numNext && isNumber(inputs[x], register) && operation != 'a') {
+        } else if (numNext && isNumber(inputs[x], reg) && operation != 'a') {
           if (operation == '+') {
-            calcs[i % 2].add(getBigFraction(inputs[x], register));
+            calcs[i % 2].add(getBigFraction(inputs[x], reg));
           } else if (operation == '-') {
-            calcs[i % 2].subtract(getBigFraction(inputs[x], register));
+            calcs[i % 2].subtract(getBigFraction(inputs[x], reg));
           } else if (operation == '*') {
-            calcs[i % 2].multiply(getBigFraction(inputs[x], register));
+            calcs[i % 2].multiply(getBigFraction(inputs[x], reg));
           } else if (operation == '/') {
-            calcs[i % 2].divide(getBigFraction(inputs[x], register));
+            calcs[i % 2].divide(getBigFraction(inputs[x], reg));
           } // if else
           operation = 'a';
           numNext = false;

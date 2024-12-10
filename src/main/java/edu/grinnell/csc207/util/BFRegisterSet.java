@@ -10,6 +10,13 @@ package edu.grinnell.csc207.util;
 public class BFRegisterSet {
 
   /**
+   *
+   * The length of a the alphabet.
+   *
+   */
+  private static final int ALPHABET_LENGTH = 26;
+
+  /**
    * Initializes the register.
    *
    */
@@ -20,7 +27,7 @@ public class BFRegisterSet {
    *
    */
   public BFRegisterSet() {
-    arrRegister = new BigFraction[26];
+    arrRegister = new BigFraction[ALPHABET_LENGTH];
   } // end method
 
   /**
@@ -30,7 +37,7 @@ public class BFRegisterSet {
    * @param val      The value that the user wants store.
    */
   public void store(char register, BigFraction val) {
-    int index = ((int) register) - 97;
+    int index = ((int) register) - 'a';
     arrRegister[index] = val;
   } // end method
 
@@ -44,7 +51,7 @@ public class BFRegisterSet {
    *
    */
   public BigFraction get(char register) {
-    int index = ((int) register) - 97;
+    int index = ((int) register) - 'a';
     return arrRegister[index];
   } // end method
 } // class BigFraction

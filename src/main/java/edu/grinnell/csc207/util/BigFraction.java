@@ -8,7 +8,7 @@ import java.math.BigInteger;
  * @author Samuel A. Rebelsky
  * @author Jenifer Silva
  * @author A.J. Trimble
- * 
+ *
  */
 public class BigFraction {
   // +------------------+---------------------------------------------
@@ -40,10 +40,10 @@ public class BigFraction {
   // +--------+
 
   /** The numerator of the fraction. Can be positive, zero or negative. */
-  BigInteger num;
+  private BigInteger num;
 
   /** The denominator of the fraction. Must be non-negative. */
-  BigInteger denom;
+  private BigInteger denom;
 
   // +--------------+-------------------------------------------------
   // | Constructors |
@@ -55,9 +55,9 @@ public class BigFraction {
    * Warning! Not yet stable.
    *
    * @param numerator
-   *   The numerator of the fraction.
+   *                    The numerator of the fraction.
    * @param denominator
-   *   The denominator of the fraction.
+   *                    The denominator of the fraction.
    */
   public BigFraction(BigInteger numerator, BigInteger denominator) {
     this.num = numerator;
@@ -70,9 +70,9 @@ public class BigFraction {
    * Warning! Not yet stable.
    *
    * @param numerator
-   *   The numerator of the fraction.
+   *                    The numerator of the fraction.
    * @param denominator
-   *   The denominator of the fraction.
+   *                    The denominator of the fraction.
    */
   public BigFraction(int numerator, int denominator) {
     this.num = BigInteger.valueOf(numerator);
@@ -85,7 +85,7 @@ public class BigFraction {
    * Warning! Not yet implemented.
    *
    * @param str
-   *   The fraction in string form
+   *            The fraction in string form
    */
   public BigFraction(String str) {
     boolean fractionalNumber = false;
@@ -98,41 +98,41 @@ public class BigFraction {
         fractionalNumber = true;
       } // end if
     } // end forloop
-    if (fractionalNumber){
+    if (fractionalNumber) {
       String[] values = str.split("/");
-      if (Integer.valueOf(values[1]) == 0){
+      if (Integer.valueOf(values[1]) == 0) {
         System.err.println("Error: Division by 0");
         return;
-      }
+      } //if
       this.num = BigInteger.valueOf(Integer.valueOf(values[0]));
       this.denom = BigInteger.valueOf(Integer.valueOf(values[1]));
     } else {
       this.num = BigInteger.valueOf(Integer.valueOf(str));
-      this.denom = BigInteger.valueOf(1); 
-    } 
+      this.denom = BigInteger.valueOf(1);
+    } //else
   } // BigFraction
 
   // +---------+------------------------------------------------------
   // | Methods |
   // +---------+
 
-/**
- * Add another faction to this fraction.
- *
- * @param addend
- *   The fraction to add.
- *
- * @return the result of the addition.
- */
+  /**
+   * Add another faction to this fraction.
+   *
+   * @param addend
+   *               The fraction to add.
+   *
+   * @return the result of the addition.
+   */
   public BigFraction add(BigFraction addend) {
     BigInteger resultNumerator;
     BigInteger resultDenominator;
 
     // The denominator of the result is the product of this object's
     // denominator and addend's denominator
-    if (this.denom.intValue() == 0){
+    if (this.denom.intValue() == 0) {
       return new BigFraction(addend.num, addend.denom);
-    }
+    } //if
     resultDenominator = this.denom.multiply(addend.denom);
     // The numerator is more complicated
     resultNumerator = (this.num.multiply(addend.denom)).add(addend.num.multiply(this.denom));
@@ -141,57 +141,56 @@ public class BigFraction {
     return new BigFraction(resultNumerator, resultDenominator).fractional();
   } // add(BigFraction)
 
-
   /**
- * Add another faction to this fraction.
- *
- * @param addend
- *   The fraction to add.
- *
- * @return the result of the addition.
- */
+   * Subtract another faction to this fraction.
+   *
+   * @param subtracted
+   *               The fraction to subtract.
+   *
+   * @return the result of the subtraction.
+   */
   public BigFraction subtract(BigFraction subtracted) {
     BigInteger resultNumerator;
     BigInteger resultDenominator;
-    if (this.denom.intValue() == 0){
+    if (this.denom.intValue() == 0) {
       return new BigFraction(subtracted.num, subtracted.denom);
-    }
+    } // if
     // The denominator of the result is the product of this object's
     // denominator and subtract's denominator
     resultDenominator = this.denom.multiply(subtracted.denom);
     // The numerator is more complicated
-    resultNumerator =
-      (this.num.multiply(subtracted.denom)).subtract(subtracted.num.multiply(this.denom));
+    resultNumerator = (this.num.multiply(subtracted.denom))
+    .subtract(subtracted.num.multiply(this.denom));
 
     // Return the computed value
     return new BigFraction(resultNumerator, resultDenominator).fractional();
   } // add(BigFraction)
 
-/**
- * Get the denominator of this fraction.
- *
- * @return the denominator
- */
+  /**
+   * Get the denominator of this fraction.
+   *
+   * @return the denominator
+   */
   public BigInteger denominator() {
     BigFraction simpleValue = new BigFraction(this.num, this.denom).fractional();
     return simpleValue.denom;
   } // denominator()
 
-/**
- * Get the numerator of this fraction.
- *
- * @return the numerator
- */
+  /**
+   * Get the numerator of this fraction.
+   *
+   * @return the numerator
+   */
   public BigInteger numerator() {
     BigFraction simpleValue = new BigFraction(this.num, this.denom).fractional();
     return simpleValue.num;
   } // numerator()
 
-/**
- * Convert this fraction to a string for ease of printing.
- *
- * @return a string that represents the fraction.
- */
+  /**
+   * Convert this fraction to a string for ease of printing.
+   *
+   * @return a string that represents the fraction.
+   */
   public String toString() {
     // Special case: It's zero
     if (this.num.equals(BigInteger.ZERO)) {
@@ -210,46 +209,49 @@ public class BigFraction {
     } // ifelse
   } // toString()
 
-/**
- * Multiply this faction to by another fraction.
- *
- * @param other
- *   The fraction to multiply.
- *
- * @return the result of the multiplication.
- */
+  /**
+   * Multiply this faction to by another fraction.
+   *
+   * @param other
+   *              The fraction to multiply.
+   *
+   * @return the result of the multiplication.
+   */
   public BigFraction multiply(BigFraction other) {
     BigInteger top = this.num.multiply(other.num);
     BigInteger bottom = this.denom.multiply(other.denom);
     return new BigFraction(top, bottom).fractional();
-  }
+  } // multiply(BigFraction)
 
-/**
- * Divide this faction to by another fraction.
- *
- * @param other
- *   The fraction to divide by.
- *
- * @return the result of the division.
- */
+  /**
+   * Divide this faction to by another fraction.
+   *
+   * @param other
+   *              The fraction to divide by.
+   *
+   * @return the result of the division.
+   */
   public BigFraction divide(BigFraction other) {
     BigInteger top = this.num.multiply(other.denom);
     BigInteger bottom = this.denom.multiply(other.num);
     return new BigFraction(top, bottom).fractional();
-  }
+  } // divide(BigFraction)
 
-/**
- * Find the simpilist form of the given fraction. If it's a whole number, the numerator will return as 1.
- *
- *
- * @return the simpilist form of the fraction
- */
+  /**
+   * Find the simpilist form of the given fraction. If it's a whole number, the
+   * numerator will return as 1.
+   *
+   *
+   * @return the simpilist form of the fraction
+   */
   public BigFraction fractional() {
-    BigInteger GCD = this.num.gcd(this.denom);
-    if (GCD.equals(BigInteger.valueOf(0))){
+    BigInteger greatestCommonDenominator = this.num.gcd(this.denom);
+    if (greatestCommonDenominator.equals(BigInteger.valueOf(0))) {
       return this;
     } else {
-      return new BigFraction(this.num.divide(GCD), this.denom.divide(GCD));
-    }
-  }
+      BigInteger newNum = this.num.divide(greatestCommonDenominator);
+      BigInteger newDenom = this.denom.divide(greatestCommonDenominator);
+      return new BigFraction(newNum, newDenom);
+    } // else
+  } // fractional()
 } // class BigFraction

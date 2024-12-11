@@ -29,7 +29,7 @@ public class QuickCalculator {
     calcs[1] = new BFCalculator();
     if (args.length == 0) {
       pen.println("FAILED [Invalid expression]");
-    } else { 
+    } else {
       for (int i = 0; i < args.length; i++) {
         char operation = 'a';
         boolean invalidInput = calcRunner(args[i], calcs, register, i, operation);

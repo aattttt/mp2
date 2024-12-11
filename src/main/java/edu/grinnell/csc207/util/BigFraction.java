@@ -203,7 +203,7 @@ public class BigFraction {
     if (simpleValue.num.signum() == 1 && simpleValue.denom.signum() == -1) {
       if (simpleValue.denom.negate().equals(BigInteger.ONE)) {
         return simpleValue.num.negate() + "";
-      } else { 
+      } else {
         return simpleValue.num.negate() + "/" + simpleValue.denom.negate();
       } // end else
     } else if (simpleValue.denom.equals(BigInteger.ONE)) {
@@ -258,7 +258,7 @@ public class BigFraction {
       if (newNum.signum() == -1 && newDenom.signum() == -1) {
         newNum = newNum.multiply(BigInteger.valueOf(-1));
         newDenom = newDenom.multiply(BigInteger.valueOf(-1));
-      }
+      } // if
       return new BigFraction(newNum, newDenom);
     } // else
   } // fractional()

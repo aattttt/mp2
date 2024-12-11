@@ -40,12 +40,12 @@ public class InteractiveCalculator {
       char operation = 'a';
       boolean invalidInput = calcRunner(stuff, calcs, register, i, operation);
       if (invalidInput) {
-        pen.printf("*** ERROR [Invalid expression] ***");
+        pen.println("*** ERROR [Invalid expression] ***");
       } else {
         if (isStore(stuff)) {
-          pen.printf("STORED");
+          pen.println("STORED");
         } else {
-          pen.printf((calcs[i % 2].get()).toString());
+          pen.println((calcs[i % 2].get()).toString());
         } // if else
       } // else
       calcs[(i + 1) % 2].clear();

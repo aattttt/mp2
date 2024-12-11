@@ -201,7 +201,11 @@ public class BigFraction {
     // return this.num.toString().concat("/").concat(this.denom.toString());
     BigFraction simpleValue = new BigFraction(this.num, this.denom).fractional();
     if (simpleValue.num.signum() == 1 && simpleValue.denom.signum() == -1) {
-      return simpleValue.num.negate() + "/" + simpleValue.denom.negate();
+      if (simpleValue.denom.negate().equals(BigInteger.ONE)) {
+        return simpleValue.num.negate() + "";
+      } else { 
+        return simpleValue.num.negate() + "/" + simpleValue.denom.negate();
+      } // end else
     } else if (simpleValue.denom.equals(BigInteger.ONE)) {
       return simpleValue.num + "";
     } else {
@@ -251,6 +255,10 @@ public class BigFraction {
     } else {
       BigInteger newNum = this.num.divide(greatestCommonDenominator);
       BigInteger newDenom = this.denom.divide(greatestCommonDenominator);
+      if (newNum.signum() == -1 && newDenom.signum() == -1) {
+        newNum = newNum.multiply(BigInteger.valueOf(-1));
+        newDenom = newDenom.multiply(BigInteger.valueOf(-1));
+      }
       return new BigFraction(newNum, newDenom);
     } // else
   } // fractional()
